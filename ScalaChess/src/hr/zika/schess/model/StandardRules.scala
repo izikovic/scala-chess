@@ -26,13 +26,19 @@ class StandardRules extends Variant {
 	val moveUpLeft: Movement = move(_.up.left)(_: Board)(_: Square, _: Int)
 
 	val moveDownLeft: Movement = move(_.down.right)(_: Board)(_: Square, _: Int)
-	
+
 	def move(direction: Square => Square)(board: Board)(start: Square, maxMoves: Int = 8): List[Square] = {
 		if (maxMoves == 0 || !(board squareExists start)) Nil
 		else if (board isPieceAt start) start :: Nil
 		else start :: move(direction)(board)(direction(start), maxMoves - 1)
 	}
-
 	
+	
+	
+	class WhiteRook extends Piece(White) {
+		def move: Movement = moveUp
+	} 
+	
+
 }
 
